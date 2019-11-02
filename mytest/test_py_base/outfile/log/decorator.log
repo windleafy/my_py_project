@@ -1,0 +1,6 @@
+2019-10-24,10:17:35 - decorator02.py:33 - log_obj - foo开始执行
+2019-10-24,10:17:37 - decorator02.py:35 - log_obj - foo结束执行
+2019-10-24,10:18:17 - decorator02.py:33 - log_obj - foo开始执行
+2019-10-24,10:18:19 - decorator02.py:35 - log_obj - foo结束执行
+2019-10-24,10:18:24 - decorator02.py:33 - log_obj - foo开始执行
+2019-10-24,10:18:26 - decorator02.py:35 - log_obj - foo结束执行
