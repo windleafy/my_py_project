@@ -1,0 +1,117 @@
+<!doctype html>
+<title>Hello Sample</title>
+<style type="text/css">
+    .odd {
+        background-color: #BDF;
+    }
+</style>
+
+{# name作为参数，从jinjia2-1.py传入 #}
+{% if name and name == 'admin'  %}
+  <h1>This is admin console</h1>
+
+{% elif name %}
+
+  {# true 开启自动转义 防止html注入 #}
+  {% autoescape true %}
+  <h1>Welcome {{ name }}!</h1>
+  {% endautoescape %}
+
+  {# 字符串连接符~，作用同Python中的+一样 #}
+  <p>String Connect: {{ "Hello " ~ name ~ "!" }}</p>
+
+{% else %}
+  <h1>Please login</h1>
+  {# 字符串 #}
+  <p>String: {{ "Hello" }}</p>
+  {# 字典 #}
+  <p>Dict: {{ {'id':'1', 'name':'hello'} }}</p>
+  {# 数字计算 #}
+  <p>Calculate: {{ 1 + 2 }}</p>
+  {# 比较 #}
+  <p>Compare: {{ 2 > 1 }}</p>
+  {# 逻辑运算 #}
+  <p>Logic: {{ False and True }}</p>
+  {# 集合 #}
+  <p>in: {{ 1 in [1,2,3] }}</p>
+{% endif %}
+
+  {# if关键字，如果name有值，就执行'Hi, %s' % name #}
+  <p>If keyword: {{ 'Hi, %s' % name if name }}</p>
+
+  {# digits作为参数，从jinja2-1.py传入 #}
+  {# 没有"-"号，输出1 2 3 4 5，有了"-"号，输出12345 #}
+  {% for digit in digits -%}
+    {{ digit }}
+  {%- endfor %}
+
+<dl>
+{# user作为参数，从jinja2-1.py传入 #}
+{% for user in users if not user.hidden %}
+
+  {# 是否为循环的第一个元素 #}
+  {% if loop.first %}
+    <div>User List:</div>
+    {# 当前循环层级 #}
+    <dd>Deep: {{ loop.depth }}</dd>
+    {# 跳出本次循环，进入下次循环 #}
+    {% continue %}
+  {% endif %}
+
+  {# class='odd',class='even'间轮循 #}
+  <div class="{{ loop.cycle('odd', 'even') }}">
+  {# 循环迭代计数（从1开始） #}
+  <dt>User No {{ loop.index }}:</dt>
+  <dd>{{ user.name }}</dd>
+  </div>
+
+  {# 是否为循环的最后一个元素 #}
+  {% if loop.last %}
+    {# 循环列表中元素的个数 #}
+    <div>Total Users: {{ loop.length }}</div>
+  {% endif %}
+
+{% else %}
+  <li>No users found</li>
+{% endfor %}
+</dl>
+
+{% set items = [[1,2],[3,4,5]] %}
+
+{# 递归 #}
+{% for item in [[1,2,3],[4,5,6]] recursive %}
+  Depth: {{ loop.depth }}
+  {{ item }}
+
+  {% if item[0] %}
+    {{ loop(item) }}
+  {% else %}
+    Number: {{ item }} ;
+  {% endif %}
+
+  <br>
+{% endfor %}
+
+
+{# raw忽略所有模板语法 #}
+{% raw %}
+    <ul>
+    {% for item in items %}
+        <li>{{ item }}</li>
+    {% endfor %}
+    </ul>
+{% endraw %}
+
+{# with限制语句块内对象的作用域 #}
+{% with foo = 1 %}
+    {# set给变量赋值 #}
+    {% set bar = 2 %}
+    {{ foo + bar }}
+{% endwith %}
+{# foo and bar are not visible here #}
+
+{# do可以用来执行python表达式 #}
+{% with arr = ['Sunny'] %}
+  {% do arr.append('Rainy') %}
+  <p><em>{{ arr }}</em></p>
+{% endwith %}

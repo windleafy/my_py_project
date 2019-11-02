@@ -1,0 +1,21 @@
+<!doctype html>
+<title>Hello Sample</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <h1>Hello World!</h1>
+  <p>Request URL: {{ request.url }}</p>
+  <p>User: {{ session.user }}</p>
+  <p>DB: {{ g.db }}</p>
+  <p>DB_POS: {{ g.db_pos }}</p>
+  <p>DEBUG: {{ g.debug }}</p>
+  <p>Current App is: {{ appname }}</p>
+  <p>Current Time is: {{ current_time() }}</p>
+  <p>Current Day is: {{ current_time("%Y-%m-%d") }}</p>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+       <li>Flash Message: {{ message }}</li>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
