@@ -39,5 +39,5 @@ def verify(host, port, passwd, method, local_port):
         print(e)
 
     os.system('systemctl stop shadowsocks-libev-local@local.service')
-    print(f'status{status}')
+    print(f'status: {status}')
     return status

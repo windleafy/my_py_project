@@ -1,5 +1,6 @@
 from ss_chk.ss_chk_fun import verify
 import json
+import time
 
 
 # 取ss-free服务器列表
@@ -30,8 +31,12 @@ def chk_url(urls):
         dict_list.append(url_dict)
 
     # print(dict_list)
-    '''
+    count = 1
+    l = len(dict_list)
     for i in dict_list:
+
+        print(f'No.{count}, left: {l-count}')
+        count += 1
         item = i
         host = item['server']
         port = item['server_port']
@@ -39,12 +44,13 @@ def chk_url(urls):
         method = item['method']
 
         status = verify(host, port, passwd, method, 1080)
+        e_time = time.time()
         if status:
             print(item)
             yield item
+        print(f'used time:{e_time - star_time}')
+        print('\n')
 
-        # print('\n')
-    '''
     # 待处理为有效server
     return dict_list
 
@@ -70,6 +76,7 @@ def refresh_client_json():
 
 
 if __name__ == '__main__':
+    star_time = time.time()
     # 取出全部url
     url = get_server_url()
 
@@ -80,3 +87,5 @@ if __name__ == '__main__':
     # 将有效的url存入客户端配置
     refresh_client_json()
 
+    end_time = time.time()
+    print(f'used time:{end_time-star_time}')
