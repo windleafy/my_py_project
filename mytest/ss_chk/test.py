@@ -1,4 +1,4 @@
-from ss_fun import verify
+from ss_chk.ss_fun import verify
 
 url = 'url.txt'
 
