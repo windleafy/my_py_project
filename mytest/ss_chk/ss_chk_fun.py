@@ -5,6 +5,7 @@ import socket
 import httplib2
 
 
+# ss账号密码有效性验证
 def verify(host, port, passwd, method, local_port):
     ip = socket.getaddrinfo(host, None)[0][4][0]
     v6 = ':' in ip
