@@ -25,13 +25,13 @@ if __name__ == '__main__':
 
     # 数据表增、删、改、查
     '''
-    session = db_test_obj.crt_session(Stu)
+    session = db_test_obj.crt_session(User)
     if session:
 
         # 插入一条数据
-        new_stu = Stu(name='小五', password='123')
+        new_stu = User(name='小五', password='123')
         try:
-            session.add(new_stu)
+            session.add(new_user)
         except Exception as e:
             print(e)
         else:
@@ -39,16 +39,16 @@ if __name__ == '__main__':
 
         # 查寻&修改一条数据
         try:
-            stu = session.query(Stu).filter(Stu.id == '1').one()
+            user = session.query(User).filter(User.id == '1').one()
         except Exception as e:
             err = e
             print('没查寻到')
         else:
-            stu.name = '愉快'
+            user.name = '愉快'
 
         # 查寻&删除一条数据
         try:
-            stu = session.query(Stu).filter(Stu.id == '1').delete()
+            user = session.query(User).filter(User.id == '1').delete()
         except Exception as e:
             err = e
             print('没查寻到')
@@ -63,4 +63,4 @@ if __name__ == '__main__':
             err = e
         else:
             print('数据库已关闭！')
-    '''
+        '''

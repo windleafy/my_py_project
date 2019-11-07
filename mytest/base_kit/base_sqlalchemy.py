@@ -27,11 +27,18 @@ class MySqlAlchemy:
 
     # 检查数据库是否存在
     def db_exist(self):
-        return database_exists(self._engine.url)
+        try:
+            database_exists(self._engine.url)
+            return
+        except Exception as e:
+            print(e)
+            return 'err'
 
     # 创建数据库
     def crt_db(self):
-        if not self.db_exist():
+        if self.db_exist() == 'err':
+            return
+        elif not self.db_exist():
             create_database(self._engine.url)
             print('数据库创建成功')
         else:
@@ -39,7 +46,9 @@ class MySqlAlchemy:
 
     # 删除数据库
     def drop_db(self):
-        if not self.db_exist():
+        if self.db_exist() == 'err':
+            return
+        elif not self.db_exist():
             print('数据库不存在')
         else:
             drop_database(self._engine.url)
