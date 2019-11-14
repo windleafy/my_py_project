@@ -23,6 +23,7 @@ class ImagesSpider(Spider):
 
     # 页面数据解析
     def parse(self, response):
+        # 生成结果字典，通过get方法，获取字典中的值
         result = json.loads(response.text)
         for image in result.get('list'):
             item = ImageItem()
