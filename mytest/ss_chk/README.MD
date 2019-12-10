@@ -1,1 +1,5 @@
 ss_chk
+ss_chk_simple:批量检测指定IP列表是否可以ping通
+
+ss_chk_fun:测试使用指定的ss账密，调用ss客户端是否可以连接google
+ss_chk_run:对收集的ss账号批量测试，对于有效账号，生成win版ss客户端配置文件

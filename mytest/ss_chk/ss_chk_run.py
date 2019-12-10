@@ -27,7 +27,7 @@ def chk_url(urls):
             'remarks': '',
             'timeout': 5
         }
-
+        # 将页面上收集的url列表，转化为待检测的字典列表。
         dict_list.append(url_dict)
 
     # print(dict_list)
@@ -47,12 +47,10 @@ def chk_url(urls):
         e_time = time.time()
         if status:
             print(item)
+            # 返回有效条目
             yield item
         print(f'used time:{e_time - star_time}')
         print('\n')
-
-    # 待处理为有效server
-    return dict_list
 
 
 # 刷新客户端配置文件
@@ -64,7 +62,7 @@ def refresh_client_json():
     # print(c_content['configs'])
     print('ss gui client 配置文件读取完毕')
 
-    # 客户端文件刷新
+    # 客户端文件刷新，将检测为有效的IP配置写入配置文件
     c_content['configs'] = s_info_list['config']
     print('url信息更新完毕')
 
