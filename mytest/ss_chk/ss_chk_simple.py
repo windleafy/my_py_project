@@ -9,4 +9,6 @@
 from base_kit.base_ip_chk import check_ip_port
 h = '204.45.182.34'
 p = 8097
+
+# 读取待检测IP列表，进行批量检测
 print(check_ip_port(h, p))
