@@ -1,12 +1,10 @@
 from ss_chk.ss_chk_fun import verify
 import json
 import time
-
-
-# 取ss-free服务器列表
 from ss_chk.ss_chk_simple import ping_ip
 
 
+# 取ss-free服务器列表
 def get_server_url():
     with open('url_list.txt', encoding='utf8') as f:
         s_content = f.read()
