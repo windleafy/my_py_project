@@ -7,8 +7,24 @@
 # @Software: PyCharm  Python3.7.2
 # ss服务器IP与端口验证
 from base_kit.base_ip_chk import check_ip_port
-h = '204.45.182.34'
-p = 8097
+from ss_chk.ss_chk_run import get_server_url
 
-# 读取待检测IP列表，进行批量检测
-print(check_ip_port(h, p))
+
+def ping_ip(urls):
+    for item in urls:
+        host = item[0]
+        port = int(item[1])
+        # 读取待检测IP列表，进行批量检测
+        status = check_ip_port(host, port)
+        print(status)
+        if status:
+            print(host, port)
+            yield item
+
+
+if __name__ == "__main__":
+    url_list = list(get_server_url())
+    for ss in list(ping_ip(url_list)):
+        print(ss)
+
+
