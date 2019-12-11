@@ -4,15 +4,6 @@ import time
 from ss_chk.ss_chk_simple import ping_ip
 
 
-# 取ss-free服务器列表
-def get_server_url():
-    with open('url_list.txt', encoding='utf8') as f:
-        s_content = f.read()
-    content_list = s_content.split('\n')
-    for i in content_list:
-        yield i.split()[1:5]
-
-
 # 验证ss-free服务器列表
 def chk_url(urls):
     dict_list = []
@@ -76,11 +67,9 @@ def refresh_client_json():
 
 if __name__ == '__main__':
     star_time = time.time()
-    # 取出全部url
-    url = get_server_url()
 
-    # 找出可以可以Ping通的IP
-    url = list(ping_ip(url))
+    # 找出可以Ping通的IP
+    url = list(ping_ip())
     print('free-ss 可以Ping通的IP过滤完毕!')
 
     # 取出有效的url
