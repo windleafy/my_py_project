@@ -19,6 +19,7 @@ h = httplib2.Http()
 response, content = h.request('https://www.baidu.com/')
 
 # 设置代理访问
-httplib2.Http(proxy_info=httplib2.ProxyInfo(socks.PROXY_TYPE_HTTP, 'localhost', 1080), timeout=60)
-r, c = h.request("http://www.baidu.com/")
+h = httplib2.Http(proxy_info=httplib2.ProxyInfo(socks.PROXY_TYPE_SOCKS5, 'localhost', 1080), timeout=60)
+# h = httplib2.Http(proxy_info=httplib2.ProxyInfo(2, '127.0.0.1', 1080), timeout=60)
+r, c = h.request("https://www.google.com/")
 print(r)
