@@ -14,9 +14,10 @@ import socket
 port = 8081
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.bind(('', port))
+print('等待客端的消息！')
 
 while True:
-    # 接收消息
+    # 接收消息，3000是缓冲区长度
     data, addr = s.recvfrom(3000)
 
     # 当前时间

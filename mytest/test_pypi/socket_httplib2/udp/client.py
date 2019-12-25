@@ -11,7 +11,7 @@ import socket
 
 # 环境初始化
 port = 8081
-host = 'localhost'
+host = '192.168.1.109'
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 while True:
