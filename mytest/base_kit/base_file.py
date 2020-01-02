@@ -68,9 +68,7 @@ def list2csv(data):
     :param data: data.rows  [[str1_1,str1_2,str1_3],
     [str2_1,str2_2,str2_3],[str3_1,str3_2,str3_3]]
     """
-    name = data.save_name.split('/')[-1]
-    pos = data.save_name.find(name)
-    path = data.save_name[0:pos]
+    path = data.save_name.rsplit('/', 1)[0]
     dir_chk_create(path)
 
     file_exist = os.path.exists(data.save_name)
