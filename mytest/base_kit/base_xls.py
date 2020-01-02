@@ -21,8 +21,15 @@ def write_03_excel(data):
     # @ data.value  输入值，要保存的数据
     wb = xlwt.Workbook()
     sheet = wb.add_sheet(data.sheet_name)
-    value = data.value
-    for i in range(0, 4):
+
+    old_value = list(read_03_excel(data.path))
+    # 如文件已存在，在原数据后加新数据；否则，创建表头与新数据。
+    if len(old_value) != 0:
+        value = old_value + data.value
+    else:
+        value = data.header + data.value
+
+    for i in range(len(value)):
         for j in range(0, len(value[i])):
             sheet.write(i, j, value[i][j])
     wb.save(data.path)
@@ -36,18 +43,22 @@ def read_03_excel(path):
     :yield 生成器
     """
     # @ path 读取文件的路径
-    workbook = xlrd.open_workbook(path)
-    sheets = workbook.sheet_names()
-    # print(sheets)
-    worksheet = workbook.sheet_by_name(sheets[0])
+    try:
+        workbook = xlrd.open_workbook(path)
+        sheets = workbook.sheet_names()
+        # print(sheets)
+        worksheet = workbook.sheet_by_name(sheets[0])
 
-    for i in range(0, worksheet.nrows):
-        # row = worksheet.row(i)
-        data_list_item = []
-        for j in range(0, worksheet.ncols):
-            # print(worksheet.cell_value(i, j), "\t", end="")
-            data_list_item.append(worksheet.cell_value(i, j))
-        yield (data_list_item)
+        for i in range(0, worksheet.nrows):
+            # row = worksheet.row(i)
+            data_list_item = []
+            for j in range(0, worksheet.ncols):
+                # print(worksheet.cell_value(i, j), "\t", end="")
+                data_list_item.append(worksheet.cell_value(i, j))
+            yield (data_list_item)
+    except Exception as e:
+        if e:
+            return False
 
 
 # excel 2007写入
@@ -58,12 +69,19 @@ def write_07_excel(data):
     # @ data.path  输入值，文件保存路径
     # @ data.sheet_name  输入值，excel分页名称
     # @ data.value  输入值，要保存的数据
+
     wb = openpyxl.Workbook()
     sheet = wb.active
     sheet.title = data.sheet_name
 
-    value = data.value
-    for i in range(4):
+    old_value = list(read_07_excel(data.path))
+    # 如文件已存在，在原数据后加新数据；否则，创建表头与新数据。
+    if len(old_value) != 0:
+        value = old_value + data.value
+    else:
+        value = data.header + data.value
+
+    for i in range(len(value)):
         for j in range(0, len(value[i])):
             sheet.cell(row=i+1, column=j+1, value=str(value[i][j]))
 
@@ -77,15 +95,21 @@ def read_07_excel(path):
     :param path: 读取文件的路径
     :yield: 返回生成器
     """
-    # @ path  输入值，
-    wb = openpyxl.load_workbook(path)
-    # print(wb.worksheets)
-    sheet = wb.worksheets[0]
+    # @ path  输入值
+    try:
+        wb = openpyxl.load_workbook(path)
+        # print(wb.worksheets)
+        sheet = wb.worksheets[0]
 
-    for row in sheet.rows:
-        data_item = []
-        for cell in row:
-            # print(cell.value, "\t", end="")
-            data_item.append(cell.value)
-        yield data_item
+        for row in sheet.rows:
+            data_item = []
+            for cell in row:
+                # print(cell.value, "\t", end="")
+                data_item.append(cell.value)
+            yield data_item
+    except Exception as e:
+        if e:
+            # print(e)
+            return False
+
 
